@@ -1,0 +1,101 @@
+## eureka config
+eureka:
+  client:
+    enabled: false
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://192.168.101.8:8888/eureka/
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+
+## logging config
+logging:
+  config: classpath:logback-chro.xml
+
+pagehelper:
+  helperDialect: oracle
+
+server:
+  port: 2800
+
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /api-docs
+
+spring:
+  application:
+    name: finance-service
+
+  ## cache config
+  cache:
+    redis:
+      # redis µÄ¼ü Ç°×º
+      key-prefix: "finance-service:"
+      use-key-prefix: true
+      time-to-live: 1d
+
+  ## database config
+  datasource:
+    master:
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=20
+      driverClassName: oracle.jdbc.OracleDriver
+      filters: stat,wall,slf4j
+      initialize: true
+      type: com.alibaba.druid.pool.DruidDataSource
+      url: jdbc:oracle:thin:@//192.168.101.9:1521/chrodbpdb
+      username: develop_chro
+      password: develop_chro
+      useGlobalDataSourceStat: true
+    slave-alpha:
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=20
+      driverClassName: oracle.jdbc.OracleDriver
+      filters: stat,wall
+      initialize: true
+      password: develop_chro
+      type: com.alibaba.druid.pool.DruidDataSource
+      url: jdbc:oracle:thin:@//192.168.101.10:1521/chrodbpdb
+      useGlobalDataSourceStat: true
+      username: develop_chro
+    slave-beta:
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=20
+      driverClassName: oracle.jdbc.OracleDriver
+      filters: stat,wall
+      initialize: true
+      password: develop_chro
+      type: com.alibaba.druid.pool.DruidDataSource
+      url: jdbc:oracle:thin:@//192.168.101.11:1521/chrodbpdb
+      useGlobalDataSourceStat: true
+      username: develop_chro
+
+  ## redis config
+  redis:
+    host: 192.168.101.7
+    jedis:
+      pool:
+        max-active: 100
+        max-idle: 10
+        max-wait: 3
+    port: 6379
+    database: 0
+    password:
+
+#  session:
+#    redis:
+#      flush-mode: on_save
+#      namespace: spring:session
+#    store-type: redis
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#  endpoint:
+#    health:
+#      show-details: always
