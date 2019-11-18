@@ -3,3 +3,12 @@ data:
   user:
     username: fengzheng-dev999
     password: password-dev
+
+spring:
+  application:
+    name: config-single-client
+  profiles:
+    activ: dev
+
+server:
+  port: 8081
