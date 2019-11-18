@@ -3,3 +3,12 @@ data:
   user:
     username: fengzheng-online
     password: password-online
+    
+spring:
+  application:
+    name: config-single-client
+  profiles:
+    activ: dev
+
+server:
+  port: 8081
